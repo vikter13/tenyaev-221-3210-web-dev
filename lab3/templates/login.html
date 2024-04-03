@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>login page</title>
+</head>
+<body>
+    <h1>login</h1>
+    <form method="post" action="">
+        {{ form.username }}
+        {{ form.password }}
+        {{ form.submit }}
+    </form>
+
+
+    <a href="{{url_for('register')}}">you don't have an account?</a>
+</body>
+</html>
