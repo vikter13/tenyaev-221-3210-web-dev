@@ -8,6 +8,7 @@
 <body>
     <h1>login</h1>
     <form method="post" action="">
+        {{ form.hidden_tag() }} <!-- скрытое поле для генерации csrf токена (случайное число установленное сервером в рамках одной сессии) -->
         {{ form.username }}
         {{ form.password }}
         {{ form.submit }}
