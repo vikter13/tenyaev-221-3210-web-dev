@@ -8,6 +8,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError 
 
+## session
+from flask import session
+
 ## crypt
 from flask_bcrypt import Bcrypt
 
@@ -94,6 +97,17 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html', form=form)
+
+@app.route('/visits')
+def visits():
+    if 'visits' in session:
+        session['visits'] = session.get('visits') + 1
+    else:
+        session['visits'] = 1
+    
+    count_visit = session['visits']
+
+    return render_template('/visits.html', count_visit=count_visit)
 
 if __name__ == '__main__':
     app.run(debug=True)
