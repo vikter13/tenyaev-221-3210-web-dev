@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form class="form" method="POST">
+    <div class="mb-3 form-floating">
+        <input class="form-control" placeholder id="phone" name="phone" value="{{ request.form['phone'] }}"
+            aria-describedby="phoneCheckFeedback" required>
+        <label for="phone">Введите номер телефона</label>
+    </div>
+    
+    <div class="mb-3">
+        <button class="btn btn-primary">Проверить</button>
+    </div>
+
+    <div>Статус: {{ error }}</div> 
+</form>
+{% endblock %}

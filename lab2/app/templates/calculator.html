@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Калькулятор 2.0</h1>
+
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label" for="oper1">Операнд 1</label>
+            <input class="form-control" id="oper1" type="number" name="oper1" value="{{ request.form.get('oper1', '') }}">
+        </div>
+        <div class="mb-3">
+            <select class="form-select" name="operation">
+                {% for operation in operations %}
+                    <option {% if operation == request.form.get('operation') %} selected {% endif %}>{{ operation }}</option>
+                {% endfor %}
+            </select>
+        </div></div>
+        <div class="mb-3">
+            <label class="form-label" for="oper2">Операнд 2</label>
+            <input class="form-control" id="oper2" type="number" name="oper2" value="{{ request.form.get('oper2', '') }}">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+
+    <div class="mb-3">{{ result }}</div>
+    <div class="mb-3 text-danger">{{ error }}</div>
+{% endblock %}
