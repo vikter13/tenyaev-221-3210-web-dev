@@ -30,7 +30,6 @@
                         <p>{{ comment.text }}</p>
                     </div>
                 </div>
-                <!-- Display replies if any -->
                 {% if comment.replies %}
                     <div class="replies ms-5">
                         {% for reply in comment.replies %}

@@ -1,9 +1,10 @@
-def show_employee(name, salary_input):
-    if salary_input:
-        salary = float(salary_input)
-    else:
-        salary = 100000
+def show_employee(name : str, salary : int = 100000) -> str:
     return f"{name}: {salary} ₽"
 
 if __name__ == "__main__":
-    print(show_employee())
+    name = input("Enter the employee's name: ")
+    salary = input("Specify the employee's salary: ")
+    if (salary):
+        print(show_employee(name, int(salary)))
+    else:
+        print(show_employee(name))

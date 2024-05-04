@@ -1,5 +1,6 @@
 from flask import Flask, render_template, make_response, request
 import operator as op
+import re
 
 app = Flask(__name__)
 application = app
@@ -43,7 +44,7 @@ def cookies():
 def form():
     return render_template('form.html')
 
-
+# зачем r (82 строка), make_response (35 строка), get и post (43 строка)
 @app.route('/calculator', methods=['GET', 'POST'])
 def calculator():
     result = ''
@@ -78,16 +79,10 @@ def validate_phone_number():
         error = 'Неверное количество цифр в номере телефона!'
 
     if not error:
-        error = 'Вы ввели корректный номер телефона. Спасибо'
-
+        digits = re.sub(r'\D', '', phone)  # r'\D' регулярное выражение, которое соответствует любому символу, который не является цифрой
+        formatted_phone = '8-{}-{}-{}-{}'.format(digits[:3], digits[3:6], digits[6:8], digits[8:]) 
+        error = f'Вы ввели корректный номер телефона. Спасибо. Преобразованный номер: {formatted_phone}'
 
     return render_template('validation-phone.html', error=error)
-
-
-
-# python -m venv ve
-# . ve/bin/activate -- Linux
-# ve\Scripts\activate -- Windows
-# pip install flask python-dotenv
 
 
