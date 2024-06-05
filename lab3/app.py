@@ -27,15 +27,13 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login' # если пользователь попытается получить доступ к странице без аутентификации, то его перекинет на login
 
-@login_manager.user_loader # запоминает id user'а для сессии
+@login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
-
 ## classes
 
-class User(db.Model, UserMixin):
+class User(db.Model, UserMixin): ## db
     id = db.Column(db.Integer, primary_key=True) 
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
@@ -69,7 +67,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
-                login_user(user)
+                login_user(user, remember=True)
                 return redirect(url_for('dashboard'))
 
     return render_template('login.html', form=form)
@@ -78,6 +76,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    session.clear()
     return redirect(url_for('login'))
 
 @app.route('/dashboard', methods=['GET', 'POST'])
